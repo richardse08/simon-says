@@ -2,10 +2,13 @@
 	clear: both;
 }
 
+.jeepertron {
+    margin-left: 50px;
+}
+
 .banner {
 	font-size: 80px;
 	margin-top: 25px;
-	margin-left: 100px;
 	font-family: lobster;
 }
 
@@ -19,11 +22,7 @@
 	height: 50px;
 	width: 50px;
 	margin-top: 25px;
-	margin-left: 10px;
 }
-
-
-
 
 .green {
 	border-style: solid;
@@ -32,8 +31,11 @@
 	width: 150px;
 	margin: 10px;
 	background: green;
-	margin-left: 100px;
 	border-radius: 100px 0px 0px 0px;
+}
+
+.green-highlight {
+    background: #05f205;
 }
 
 .red {
@@ -63,6 +65,5 @@
 	width: 150px;
 	margin: 10px;
 	background: yellow;
-	margin-left: 100px;
 	border-radius: 0px 0px 0px 100px;
 }

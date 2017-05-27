@@ -31,11 +31,15 @@
 	width: 150px;
 	margin: 10px;
 	background: green;
-	border-radius: 100px 0px 0px 0px;
+	border-radius: 150px 0px 0px 0px;
 }
 
 .green-highlight {
     background: #05f205;
+}
+
+.red-highlight {
+    background: #d86a6a;
 }
 
 .red {
@@ -45,7 +49,7 @@
 	width: 150px;
 	margin: 10px;
 	background: red;
-	border-radius: 0px 100px 0px 0px;
+	border-radius: 0px 150px 0px 0px;
 }
 
 .blue {
@@ -55,7 +59,7 @@
 	width: 150px;
 	margin: 10px;
 	background: blue;
-	border-radius: 0px 0px 100px 0px;
+	border-radius: 0px 0px 150px 0px;
 }
 
 .yellow {
@@ -65,5 +69,5 @@
 	width: 150px;
 	margin: 10px;
 	background: yellow;
-	border-radius: 0px 0px 0px 100px;
+	border-radius: 0px 0px 0px 150px;
 }

@@ -7,12 +7,14 @@ $(document).ready(function(){
     var sound4 = new Audio(sounds[3]);
     var firstClick = false;
     var playList = [];
+    var testList = [1,3,2];
 	
     
 	function randomNum() {
 		var rand = Math.floor(Math.random() * (4)) + 1; 
 		return rand;
 	};
+    
     
     
     
@@ -109,21 +111,129 @@ $(document).ready(function(){
 	
 	function chooseNum(number) {
         
-        var charlie = "#" + number;
+        var charlie = randomNum();
         console.log(charlie);
+        
+        if (charlie = 1) {
+            greenFunction();
+        }
+        else if (charlie = 2) {
+            redFunction();
+        }
+        else if (charlie = 3) {
+            yellowFunction();
+        }
+        else if (charlie = 4) {
+            blueFunction();
+        }
         
     };
 	
+    
+    
+    
+//    function listLoop() {
+//        
+//        for (i = 0; i < testList.length; i++) {
+//            if (testList[i] === 1) {
+//                greenFunction();
+//            }
+//            else if (testList[i] === 2) {
+//                redFunction();
+//            }
+//            else if (testList[i] === 3) {
+//                yellowFunction();
+//            }
+//            else if (testList[i] === 4) {
+//                blueFunction();
+//            }
+//        };
+//        loopFunction();
+//    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function loopFunction() {
+        
+        var loopInterval = setInterval(function() {
+            
+            for (i = 0; i < testList.length; i++) {
+                
+                if (testList[i] === 1) {
+                    greenFunction();
+                }
+                else if (testList[i] === 2) {
+                    redFunction();
+                }
+                else if (testList[i] === 3) {
+                    yellowFunction();
+                }
+                else if (testList[i] === 4) {
+                    blueFunction();
+                }
+                console.log("asdfsdafa");
+                clearInterval(loopInterval);
+                // Between clearInterval and the 1000 is where we want to end the iteration
+            };
+                
+        }, 1000);
+        
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-	
+	$("#reset").click(function() {
+        firstClick = true;
+//        listLoop();
+        loopFunction();
+    });
+    
+    
+    
     $("#start").click(function() {
+        // Get a random number and send it to chooseNum function
         firstClick = true;
         var alpha = randomNum();
         console.log(alpha);
-        chooseNum(alpha);
-        // Fire up the first function here to begin the process
-        // How to use css to make something blink and play a noise for X duration?
+        
+        if (alpha === 1) {
+            greenFunction();
+            playList.push(alpha);
+        }
+        else if (alpha === 2) {
+            redFunction();
+            playList.push(alpha);
+        }
+        else if (alpha === 3) {
+            yellowFunction();
+            playList.push(alpha);
+        }
+        else if (alpha === 4) {
+            blueFunction();
+            playList.push(alpha);
+        }
+        
+        console.log(playList);
     });
+    
     
     
     
@@ -135,20 +245,17 @@ $(document).ready(function(){
         sound1.play();
 	});
     
-    
-    
+
     $(".red").click(function() {
 		console.log("red");
         sound2.play();
 	});
    
-    
-    
+        
     $(".blue").click(function() {
 		console.log("blue");
         sound3.play();
 	});
-    
     
     
     $(".yellow").click(function() {

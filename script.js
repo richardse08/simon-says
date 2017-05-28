@@ -42,7 +42,7 @@ $(document).ready(function(){
         var secondInterval = setInterval(function() {
             if(firstClick == true) {
                 console.log("red function");
-                $("#1").addClass("red-highlight");
+                $("#2").addClass("red-highlight");
                 sound2.play();
             }
             clearInterval(secondInterval);
@@ -52,8 +52,52 @@ $(document).ready(function(){
 	
 	function removeRedHighlight() {
 		var removeRedVar = setInterval(function() {
-        $("#1").removeClass("red-highlight");
+        $("#2").removeClass("red-highlight");
 		clearInterval(removeRedVar);
+		}, 1000);
+	};
+    
+    
+    
+    
+    function yellowFunction() {
+        var yellowInterval = setInterval(function() {
+            if(firstClick == true) {
+                console.log("yellow function");
+                $("#3").addClass("yellow-highlight");
+                sound3.play();
+            }
+            clearInterval(yellowInterval);
+            removeYellowHighlight();
+        }, 1000);
+    };
+	
+	function removeYellowHighlight() {
+		var removeYellowVar = setInterval(function() {
+        $("#3").removeClass("yellow-highlight");
+		clearInterval(removeYellowVar);
+		}, 1000);
+	};
+    
+    
+    
+    
+    function blueFunction() {
+        var blueInterval = setInterval(function() {
+            if(firstClick == true) {
+                $("#4").addClass("blue-highlight");
+                sound4.play();
+                console.log("blue function");
+            }
+            clearInterval(blueInterval);
+            removeBlueHighlight();
+        }, 1000);
+    };
+	
+	function removeBlueHighlight() {
+		var removeBlueVar = setInterval(function() {
+        $("#4").removeClass("blue-highlight");
+		clearInterval(removeBlueVar);
 		}, 1000);
 	};
 	
@@ -63,34 +107,26 @@ $(document).ready(function(){
 
 	
 	
-	
-	
-	
-	
-	
-	
+	function chooseNum(number) {
+        
+        var charlie = "#" + number;
+        console.log(charlie);
+        
+    };
 	
 
-    
-	
 	
     $("#start").click(function() {
         firstClick = true;
-		greenFunction();
+        var alpha = randomNum();
+        console.log(alpha);
+        chooseNum(alpha);
         // Fire up the first function here to begin the process
         // How to use css to make something blink and play a noise for X duration?
     });
     
     
-    $("#reset").click(function() {
-        firstClick = true;
-		redFunction();
-        // Fire up the first function here to begin the process
-        // How to use css to make something blink and play a noise for X duration?
-    });
-	
-	
-  
+    
     
     
     

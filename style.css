@@ -34,21 +34,13 @@
 	border-radius: 150px 0px 0px 0px;
 }
 
-.green-highlight {
-    background: #05f205;
-}
-
-.red-highlight {
-    background: #d86a6a;
-}
-
 .red {
 	border-style: solid;
 	border-color: black;
 	height: 150px;
 	width: 150px;
 	margin: 10px;
-	background: red;
+	background: #9f5050;
 	border-radius: 0px 150px 0px 0px;
 }
 
@@ -58,7 +50,7 @@
 	height: 150px;
 	width: 150px;
 	margin: 10px;
-	background: blue;
+	background: #0c0c71;
 	border-radius: 0px 0px 150px 0px;
 }
 
@@ -68,6 +60,22 @@
 	height: 150px;
 	width: 150px;
 	margin: 10px;
-	background: yellow;
+	background: #9b9b2b;
 	border-radius: 0px 0px 0px 150px;
+}
+
+.green-highlight {
+    background: #05f205;
+}
+
+.red-highlight {
+    background: red;
+}
+
+.yellow-highlight {
+    background: yellow;
+}
+
+.blue-highlight {
+    background: blue;
 }

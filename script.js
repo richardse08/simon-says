@@ -6,14 +6,45 @@ $(document).ready(function(){
     var sound3 = new Audio(sounds[2]);
     var sound4 = new Audio(sounds[3]);
     var firstClick = false;
-    var playList = [];
-    var testList = [1,3,2];
-	
+    var computerList = [];
+    var testList = [1,3,4,1,2];
+    var playerList = [];
+	var q = 0;
+    var allowLoop = true;
+    var allowUser = false;
     
 	function randomNum() {
 		var rand = Math.floor(Math.random() * (4)) + 1; 
 		return rand;
 	};
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    function computerMoves() {
+        
+        if (allowLoop == true) {
+            if (computerList[q] == 1) {
+                greenFunction();
+            }
+            if (computerList[q] == 2) {
+                redFunction();
+            }
+            if (computerList[q] == 3) {
+                yellowFunction();
+            }
+            if (computerList[q] == 4) {
+                blueFunction();
+            }
+        };
+        allowUser = true;
+    };
     
     
     
@@ -27,14 +58,16 @@ $(document).ready(function(){
             }
             clearInterval(firstInterval);
             removeGreenHighlight();
-        }, 1000);
+        }, 2000);
     };
-	
+    
 	function removeGreenHighlight() {
 		var removeGreenVar = setInterval(function() {
         $("#1").removeClass("green-highlight");
 		clearInterval(removeGreenVar);
 		}, 1000);
+        q++;
+        computerMoves();
 	};
     
     
@@ -49,7 +82,7 @@ $(document).ready(function(){
             }
             clearInterval(secondInterval);
             removeRedHighlight();
-        }, 1000);
+        }, 2000);
     };
 	
 	function removeRedHighlight() {
@@ -57,6 +90,8 @@ $(document).ready(function(){
         $("#2").removeClass("red-highlight");
 		clearInterval(removeRedVar);
 		}, 1000);
+        q++;
+        computerMoves();
 	};
     
     
@@ -71,7 +106,7 @@ $(document).ready(function(){
             }
             clearInterval(yellowInterval);
             removeYellowHighlight();
-        }, 1000);
+        }, 2000);
     };
 	
 	function removeYellowHighlight() {
@@ -79,6 +114,8 @@ $(document).ready(function(){
         $("#3").removeClass("yellow-highlight");
 		clearInterval(removeYellowVar);
 		}, 1000);
+        q++;
+        computerMoves();
 	};
     
     
@@ -93,7 +130,7 @@ $(document).ready(function(){
             }
             clearInterval(blueInterval);
             removeBlueHighlight();
-        }, 1000);
+        }, 2000);
     };
 	
 	function removeBlueHighlight() {
@@ -101,98 +138,11 @@ $(document).ready(function(){
         $("#4").removeClass("blue-highlight");
 		clearInterval(removeBlueVar);
 		}, 1000);
+        q++;
+        computerMoves();
 	};
 	
     
-	
-	
-
-	
-	
-	function chooseNum(number) {
-        
-        var charlie = randomNum();
-        console.log(charlie);
-        
-        if (charlie = 1) {
-            greenFunction();
-        }
-        else if (charlie = 2) {
-            redFunction();
-        }
-        else if (charlie = 3) {
-            yellowFunction();
-        }
-        else if (charlie = 4) {
-            blueFunction();
-        }
-        
-    };
-	
-    
-    
-    
-//    function listLoop() {
-//        
-//        for (i = 0; i < testList.length; i++) {
-//            if (testList[i] === 1) {
-//                greenFunction();
-//            }
-//            else if (testList[i] === 2) {
-//                redFunction();
-//            }
-//            else if (testList[i] === 3) {
-//                yellowFunction();
-//            }
-//            else if (testList[i] === 4) {
-//                blueFunction();
-//            }
-//        };
-//        loopFunction();
-//    };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    function loopFunction() {
-        
-        var loopInterval = setInterval(function() {
-            
-            for (i = 0; i < testList.length; i++) {
-                
-                if (testList[i] === 1) {
-                    greenFunction();
-                }
-                else if (testList[i] === 2) {
-                    redFunction();
-                }
-                else if (testList[i] === 3) {
-                    yellowFunction();
-                }
-                else if (testList[i] === 4) {
-                    blueFunction();
-                }
-                console.log("asdfsdafa");
-                clearInterval(loopInterval);
-                // Between clearInterval and the 1000 is where we want to end the iteration
-            };
-                
-        }, 1000);
-        
-    };
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -200,73 +150,166 @@ $(document).ready(function(){
     
     
 
-	$("#reset").click(function() {
+    
+    
+    
+    
+    // USER CLICK////////////////////////////////////////
+    $(".green").click(function() {
+        allowUser = false;
+        var userInterval = setInterval(function() {
+            $("#1").addClass("green-highlight");
+            sound1.play();
+            clearInterval(userInterval);
+            removeGreenUser();
+        }, 100);
+    });
+    function removeGreenUser() {
+        var removeGreenUserVar = setInterval(function() {
+        $("#1").removeClass("green-highlight");
+        clearInterval(removeGreenUserVar);
+        }, 300);
+        playerList.push(1);
+        console.log(playerList);
+        checker();
+    };
+        
+    
+    
+    
+    // USER CLICK////////////////////////////////////////
+    $(".red").click(function() {
+        allowUser = false;
+        var userInterval2 = setInterval(function() {
+            $("#2").addClass("red-highlight");
+            sound2.play();
+            clearInterval(userInterval2);
+            removeRedUser();
+        }, 100);
+    });
+    function removeRedUser() {
+        var removeRedUserVar = setInterval(function() {
+        $("#2").removeClass("red-highlight");
+        clearInterval(removeRedUserVar);
+        }, 300);
+        playerList.push(2);
+        console.log(playerList);
+        checker();
+    };
+    
+    
+    
+    
+    // USER CLICK////////////////////////////////////////
+    $(".yellow").click(function() {
+        allowUser = false;
+        var userInterval3 = setInterval(function() {
+            $("#3").addClass("yellow-highlight");
+            sound3.play();
+            clearInterval(userInterval3);
+            removeYellowUser();
+        }, 100);
+    });
+    function removeYellowUser() {
+        var removeYellowUserVar = setInterval(function() {
+        $("#3").removeClass("yellow-highlight");
+        clearInterval(removeYellowUserVar);
+        }, 300);
+        playerList.push(3);
+        console.log(playerList);
+        checker();
+    };
+    
+    
+    
+    
+    // USER CLICK////////////////////////////////////////
+    $(".blue").click(function() {
+        allowUser = false;
+        var userInterval4 = setInterval(function() {
+            $("#4").addClass("blue-highlight");
+            sound4.play();
+            clearInterval(userInterval4);
+            removeBlueUser();
+        }, 100);
+    });
+    function removeBlueUser() {
+        var removeBlueUserVar = setInterval(function() {
+        $("#4").removeClass("blue-highlight");
+        clearInterval(removeBlueUserVar);
+        }, 300);
+        playerList.push(4);
+        console.log(playerList);
+        checker();
+    };
+    
+    
+    
+    
+    // Game start function 
+    function gameStart() {
         firstClick = true;
-//        listLoop();
+        var newRandom = randomNum();
+        computerList.push(newRandom);
+        console.log("computer list   " + computerList);
+        computerMoves();
+        allowUser = true;
+    };
+    
+    
+    
+    
+    
+    
+    $("#start").click(function() {
+        gameStart();
+    });
+    
+    
+    
+    $("#reset").click(function () {
+        firstClick = true;
+        computerMoves();
+        console.log("reset clickjed");
+    });
+
+   
+    $("#strict").click(function () {
         loopFunction();
     });
     
     
     
-    $("#start").click(function() {
-        // Get a random number and send it to chooseNum function
-        firstClick = true;
-        var alpha = randomNum();
-        console.log(alpha);
-        
-        if (alpha === 1) {
-            greenFunction();
-            playList.push(alpha);
-        }
-        else if (alpha === 2) {
-            redFunction();
-            playList.push(alpha);
-        }
-        else if (alpha === 3) {
-            yellowFunction();
-            playList.push(alpha);
-        }
-        else if (alpha === 4) {
-            blueFunction();
-            playList.push(alpha);
-        }
-        
-        console.log(playList);
-    });
     
     
     
     
     
-    
-    
-	$(".green").click(function() {
-		console.log("green");
-        sound1.play();
-	});
     
 
-    $(".red").click(function() {
-		console.log("red");
-        sound2.play();
-	});
-   
+
+    // Check to see if the players moves are matching up with what the computer made
+    function checker() {
         
-    $(".blue").click(function() {
-		console.log("blue");
-        sound3.play();
-	});
+        if (computerList[0] == playerList[0]) {
+            gameStart();
+        } else alert("You Lose");
+        
+    };
     
     
-    $(".yellow").click(function() {
-		console.log("yellow");
-        sound4.play();
-	});
+    
+    
+    
+    
+
+
+    
+
 	
     
-	
-	
 	
 	
 	
 });
+	

@@ -10,7 +10,9 @@ Need to create code to chain the moves together, also need to add a strict mode
 
 
 
+ISSUES
 
+- Originally, I setup the 4 "color" functions (the ones that illuminate the blocks and play a sound when their respective function is fired) that illuminate the blocks to iterate a variable called 'Q' as well as re-run machine function. The purpose of this was try to do a loop by having the first color function run, followed by Q++ and machineMoves(). I realized this was bad practice and didn't work quite right (obviously) so I will use setTimeout instead paired with a loop to ensure that the loop doesn't iterate through the list all at once, but instead incorporates a delay
 
 
 

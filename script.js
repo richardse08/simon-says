@@ -7,12 +7,12 @@ $(document).ready(function(){
     var sound4 = new Audio(sounds[3]);
     
     var firstClick = false;
+    
+    var scoreVar = 0;
     var computerList = [];
     var userList = [];
     var testList = [1,3,4,1,2];
 	
-    var q = 0;
-    
     var allowLoop = true;
     var allowUser = false;
     
@@ -50,8 +50,6 @@ $(document).ready(function(){
         $("#1").removeClass("green-highlight");
 		clearInterval(removeGreenVar);
 		}, 1000);
-        console.log("q iteration is   " + q);
-        computerMoves();
 	};
     
     
@@ -74,8 +72,6 @@ $(document).ready(function(){
         $("#2").removeClass("red-highlight");
 		clearInterval(removeRedVar);
 		}, 1000);
-        console.log("q iteration is   " + q);
-        computerMoves();
 	};
     
     
@@ -98,8 +94,6 @@ $(document).ready(function(){
         $("#3").removeClass("yellow-highlight");
 		clearInterval(removeYellowVar);
 		}, 1000);
-        console.log("q iteration is   " + q);
-        computerMoves();
 	};
     
     
@@ -122,8 +116,6 @@ $(document).ready(function(){
         $("#4").removeClass("blue-highlight");
 		clearInterval(removeBlueVar);
 		}, 1000);
-        console.log("q iteration is   " + q);
-        computerMoves();
 	};
 	
     
@@ -139,29 +131,57 @@ $(document).ready(function(){
     
     
     // Tell computer to make a random move
-    // This MUST incorporate a loop to run through the list
+    // This uses a setTimeout to run loop at intervals
     function computerMoves() {
         
+        for (i = 0; i < computerList.length; i++) {
+        
+            (function(i){ 
+            
+                setTimeout(function(){
+                
+                    if (allowLoop == true) {
+                        if (computerList[i] == 1) {
+                            greenFunction();
+                        }
+                        if (computerList[i] == 2) {
+                            redFunction();
+                        }
+                        if (computerList[i] == 3) {
+                            yellowFunction();
+                        }
+                        if (computerList[i] == 4) {
+                            blueFunction();
+                        }
+                    };
+                    allowUser = true;
+        
+                }, 2000 * i);
+                
+            }(i));  
+            
+        };
         
         
-            if (allowLoop == true) {
-                if (computerList[q] == 1) {
-                    greenFunction();
-                }
-                if (computerList[q] == 2) {
-                    redFunction();
-                }
-                if (computerList[q] == 3) {
-                    yellowFunction();
-                }
-                if (computerList[q] == 4) {
-                    blueFunction();
-                }
-            };
-            allowUser = true;
+        checker();
         
     };
     
+    
+    
+    
+    
+    
+    // Check to see if the players moves are matching up with what the computer made
+    function checker() {
+        
+//        if (computerList[0] == userList[0]) {
+//            gameStart();
+//        } else alert("You Lose");
+        
+ 
+        
+    };
     
     
     
@@ -175,8 +195,34 @@ $(document).ready(function(){
         var newRandom = randomNum();
         computerList.push(newRandom);
         console.log("computer list   " + computerList);
+        userList = [];
         computerMoves();
-//        allowUser = true;
+    };
+    
+    
+    
+    
+    
+    
+    // When called, see if the users last move matches its respective spot in the machineList
+    // If it does do nothing but if it doesn't tell user they lost and reset the game
+    function checkLastMove() {
+        
+        if (userList[userList.length-1] !== computerList[userList.length-1]) {
+            alert("YOU HAVE LOST");
+            computerList = [];
+            userList = [];
+            gameStart();
+        }
+        
+        
+        // Comparing their length only, not the contents of the lists because the previous conditional should be checking that
+        else if (userList.length === computerList.length) {
+            scoreVar ++;
+            console.log("scoreVar =   " + scoreVar);
+            gameStart();
+        }
+        
     };
     
     
@@ -191,8 +237,7 @@ $(document).ready(function(){
     
     
     
-    
-    // USER CLICK////////////////////////////////////////
+    // User initiated click events below/////////////////////////////
     $(".green").click(function() {
         var userInterval = setInterval(function() {
             $("#1").addClass("green-highlight");
@@ -208,12 +253,13 @@ $(document).ready(function(){
         clearInterval(removeGreenUserVar);
         }, 300);
         userList.push(1);
-        checker();
+        console.log("userList =   " + userList);
+        checkLastMove();
     };
         
     
     
-    // USER CLICK////////////////////////////////////////
+
     $(".red").click(function() {
         var userInterval2 = setInterval(function() {
             $("#2").addClass("red-highlight");
@@ -229,12 +275,13 @@ $(document).ready(function(){
         clearInterval(removeRedUserVar);
         }, 300);
         userList.push(2);
-        checker();
+        console.log("userList =   " + userList);
+        checkLastMove();
     };
 
     
     
-    // USER CLICK////////////////////////////////////////
+
     $(".yellow").click(function() {
         var userInterval3 = setInterval(function() {
             $("#3").addClass("yellow-highlight");
@@ -250,12 +297,13 @@ $(document).ready(function(){
         clearInterval(removeYellowUserVar);
         }, 300);
         userList.push(3);
-        checker();
+        console.log("userList =   " + userList);
+        checkLastMove();
     };
     
     
     
-    // USER CLICK////////////////////////////////////////
+    
     $(".blue").click(function() {
         var userInterval4 = setInterval(function() {
             $("#4").addClass("blue-highlight");
@@ -271,8 +319,14 @@ $(document).ready(function(){
         clearInterval(removeBlueUserVar);
         }, 300);
         userList.push(4);
-        checker();
+        console.log("userList =   " + userList);
+        checkLastMove();
     };
+    
+    
+    
+    
+    
     
     
     
@@ -295,14 +349,7 @@ $(document).ready(function(){
     });
     
     
-    // Check to see if the players moves are matching up with what the computer made
-    function checker() {
-        
-        if (computerList[0] == userList[0]) {
-            gameStart();
-        } else alert("You Lose");
-        
-    };
+
 
     
     

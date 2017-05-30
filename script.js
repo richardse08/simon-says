@@ -7,14 +7,18 @@ $(document).ready(function(){
     var sound4 = new Audio(sounds[3]);
     
     var firstClick = false;
-    
+    var strictLamp = 2;
+    var strictMode = false;
+    var failCount = 0;
+        
     var scoreVar = 0;
     var computerList = [];
     var userList = [];
     var testList = [1,3,4,1,2];
 	
-    var allowLoop = true;
-    var allowUser = false;
+    var allowClick = false;
+    var lilly = 0;
+    
     
     
     
@@ -26,7 +30,14 @@ $(document).ready(function(){
 
     
     
-    
+    function checkLilly() {
+        
+        if (lilly === computerList.length) {
+            allowClick = true;
+            console.log("allowClick   " + allowClick);
+        }
+        
+    };
     
     
     
@@ -35,11 +46,8 @@ $(document).ready(function(){
     // Computer green code
     function greenFunction() {
         var firstInterval = setInterval(function() {
-            if(firstClick == true) {
-                console.log("green function");
                 $("#1").addClass("green-highlight");
                 sound1.play();
-            }
             clearInterval(firstInterval);
             removeGreenHighlight();
         }, 2000);
@@ -50,18 +58,20 @@ $(document).ready(function(){
         $("#1").removeClass("green-highlight");
 		clearInterval(removeGreenVar);
 		}, 1000);
+        lilly++;  
+        checkLilly();
+        console.log("lilly =   " + lilly);
 	};
+    
+    
     
     
     
     // Computer red code
     function redFunction() {
         var secondInterval = setInterval(function() {
-            if(firstClick == true) {
-                console.log("red function");
                 $("#2").addClass("red-highlight");
                 sound2.play();
-            }
             clearInterval(secondInterval);
             removeRedHighlight();
         }, 2000);
@@ -72,18 +82,20 @@ $(document).ready(function(){
         $("#2").removeClass("red-highlight");
 		clearInterval(removeRedVar);
 		}, 1000);
+        lilly++;  
+        checkLilly();
+        console.log("lilly =   " + lilly);
 	};
+    
+    
     
     
     
     // Computer yellow code
     function yellowFunction() {
         var yellowInterval = setInterval(function() {
-            if(firstClick == true) {
-                console.log("yellow function");
                 $("#3").addClass("yellow-highlight");
                 sound3.play();
-            }
             clearInterval(yellowInterval);
             removeYellowHighlight();
         }, 2000);
@@ -94,18 +106,20 @@ $(document).ready(function(){
         $("#3").removeClass("yellow-highlight");
 		clearInterval(removeYellowVar);
 		}, 1000);
+        lilly++;  
+        checkLilly();
+        console.log("lilly =   " + lilly);
 	};
+    
+    
     
     
     
     // Computer blue code
     function blueFunction() {
         var blueInterval = setInterval(function() {
-            if(firstClick == true) {
                 $("#4").addClass("blue-highlight");
                 sound4.play();
-                console.log("blue function");
-            }
             clearInterval(blueInterval);
             removeBlueHighlight();
         }, 2000);
@@ -116,6 +130,9 @@ $(document).ready(function(){
         $("#4").removeClass("blue-highlight");
 		clearInterval(removeBlueVar);
 		}, 1000);
+        lilly++;  
+        checkLilly();
+        console.log("lilly =   " + lilly);
 	};
 	
     
@@ -132,57 +149,33 @@ $(document).ready(function(){
     
     // Tell computer to make a random move
     // This uses a setTimeout to run loop at intervals
+    // This function DOES fire sounds and colors
     function computerMoves() {
-        
+                
         for (i = 0; i < computerList.length; i++) {
-        
             (function(i){ 
-            
                 setTimeout(function(){
                 
-                    if (allowLoop == true) {
-                        if (computerList[i] == 1) {
-                            greenFunction();
-                        }
-                        if (computerList[i] == 2) {
-                            redFunction();
-                        }
-                        if (computerList[i] == 3) {
-                            yellowFunction();
-                        }
-                        if (computerList[i] == 4) {
-                            blueFunction();
-                        }
-                    };
-                    allowUser = true;
+                    if (computerList[i] == 1) {
+                        greenFunction();
+                    }
+                    if (computerList[i] == 2) {
+                        redFunction();
+                    }
+                    if (computerList[i] == 3) {
+                        yellowFunction();
+                    }
+                    if (computerList[i] == 4) {
+                        blueFunction();
+                    }
         
                 }, 2000 * i);
-                
             }(i));  
-            
         };
         
-        
-        checker();
-        
-    };
-    
-    
-    
-    
-    
-    
-    // Check to see if the players moves are matching up with what the computer made
-    function checker() {
-        
-//        if (computerList[0] == userList[0]) {
-//            gameStart();
-//        } else alert("You Lose");
-        
- 
+        allowClick = false;
         
     };
-    
     
     
     
@@ -190,13 +183,17 @@ $(document).ready(function(){
 
 
     // Game start function 
+    // This function does NOT fire any sounds or colors
     function gameStart() {
-        firstClick = true;
+        
         var newRandom = randomNum();
         computerList.push(newRandom);
         console.log("computer list   " + computerList);
+        console.log("computer list length   " + computerList.length);
+        lilly = 0;
         userList = [];
         computerMoves();
+        
     };
     
     
@@ -209,19 +206,37 @@ $(document).ready(function(){
     function checkLastMove() {
         
         if (userList[userList.length-1] !== computerList[userList.length-1]) {
-            alert("YOU HAVE LOST");
-            computerList = [];
-            userList = [];
-            gameStart();
+            
+            failCount++;
+            
+            if (strictMode === false && failCount < 3) {
+                // Note: we wont pop anything off the end/prevent another random from being added
+                alert("Be careful! Try again");
+                gameStart();
+                
+            }
+            
+            else if(strictMode === true || failCount >= 3) {
+            
+                alert("YOU HAVE LOST");
+                computerList = [];
+                userList = [];
+                gameStart();
+            
+            }
+            
         }
         
         
         // Comparing their length only, not the contents of the lists because the previous conditional should be checking that
         else if (userList.length === computerList.length) {
+
             scoreVar ++;
-            console.log("scoreVar =   " + scoreVar);
             gameStart();
+            
         }
+        
+        $("#display").html("Score: " + scoreVar);
         
     };
     
@@ -239,12 +254,14 @@ $(document).ready(function(){
     
     // User initiated click events below/////////////////////////////
     $(".green").click(function() {
-        var userInterval = setInterval(function() {
-            $("#1").addClass("green-highlight");
-            sound1.play();
-            clearInterval(userInterval);
-            removeGreenUser();
-        }, 100);
+        if(allowClick == true) {
+            var userInterval = setInterval(function() {
+                $("#1").addClass("green-highlight");
+                sound1.play();
+                clearInterval(userInterval);
+                removeGreenUser();
+            }, 100);
+        }
     });
     
     function removeGreenUser() {
@@ -261,12 +278,14 @@ $(document).ready(function(){
     
 
     $(".red").click(function() {
-        var userInterval2 = setInterval(function() {
-            $("#2").addClass("red-highlight");
-            sound2.play();
-            clearInterval(userInterval2);
-            removeRedUser();
-        }, 100);
+        if(allowClick == true) {
+            var userInterval2 = setInterval(function() {
+                $("#2").addClass("red-highlight");
+                sound2.play();
+                clearInterval(userInterval2);
+                removeRedUser();
+            }, 100);
+        }
     });
     
     function removeRedUser() {
@@ -283,12 +302,14 @@ $(document).ready(function(){
     
 
     $(".yellow").click(function() {
-        var userInterval3 = setInterval(function() {
-            $("#3").addClass("yellow-highlight");
-            sound3.play();
-            clearInterval(userInterval3);
-            removeYellowUser();
-        }, 100);
+        if(allowClick == true) {
+            var userInterval3 = setInterval(function() {
+                $("#3").addClass("yellow-highlight");
+                sound3.play();
+                clearInterval(userInterval3);
+                removeYellowUser();
+            }, 100);
+        }
     });
     
     function removeYellowUser() {
@@ -305,12 +326,14 @@ $(document).ready(function(){
     
     
     $(".blue").click(function() {
-        var userInterval4 = setInterval(function() {
-            $("#4").addClass("blue-highlight");
-            sound4.play();
-            clearInterval(userInterval4);
-            removeBlueUser();
-        }, 100);
+        if(allowClick == true) {
+            var userInterval4 = setInterval(function() {
+                $("#4").addClass("blue-highlight");
+                sound4.play();
+                clearInterval(userInterval4);
+                removeBlueUser();
+            }, 100);
+        }
     });
     
     function removeBlueUser() {
@@ -332,20 +355,46 @@ $(document).ready(function(){
     
     
     $("#start").click(function() {
-        gameStart();
+        if(allowClick = true){
+            gameStart();
+        }
     });
+    
+    
     
     
     $("#reset").click(function () {
-        firstClick = true;
-        computerMoves();
-        console.log("reset clickjed");
+        computerList = [];
+        userList = [];
+        strictLamp = 2;
+        strictMode = false;
+        scoreVar = 0;
+        $("#display").html("Score :" + scoreVar);
+        $("#strict").removeClass("strict-highlight");
     });
 
    
+    
+    
     $("#strict").click(function () {
-        console.log("computer list =   " + computerList);
-        console.log("user list =   " + userList);
+        if(allowClick = true) {
+            console.log(strictLamp);
+            console.log(1%strictLamp);
+            if (strictLamp % 2 === 0) {
+
+                $("#strict").addClass("strict-highlight");
+                strictLamp++;
+                strictMode = true;
+
+            }
+            else if (strictLamp % 2 === 1) {
+
+                $("#strict").removeClass("strict-highlight");
+                strictLamp++;
+                strictMode = false;
+
+            }
+        }
     });
     
     

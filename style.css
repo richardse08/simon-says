@@ -79,3 +79,19 @@
 .blue-highlight {
     background: blue;
 }
+
+#strict, #reset, #start, #display {
+    border-radius: 100px 100px 100px 100px;
+}
+
+.strict-highlight {
+    background-color: green;
+}
+
+
+
+
+
+
+
+

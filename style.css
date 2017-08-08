@@ -1,15 +1,24 @@
+.wrapper {
+	margin-left: 50%;
+    margin-top: 50vh;
+    transform: translate(-50%, -50%);
+    position: absolute;
+	min-width: 400px;
+}
+
 .clear {
 	clear: both;
 }
 
-.jeepertron {
-    margin-left: 50px;
+.float-left {
+	float: left;
 }
 
 .banner {
-	font-size: 80px;
+	font-size: 70px;
 	margin-top: 25px;
-	font-family: lobster;
+	font-family: 'Russo One', sans-serif;
+	text-align: center;
 }
 
 .box {
@@ -17,49 +26,47 @@
 }
 
 .button {
-	border-style: solid;
-	border-color: black;
+	background-color: slategray;
+	border: solid;
+	border-width: 3px;
+	border-color: dimgray;
 	height: 50px;
-	width: 50px;
-	margin-top: 25px;
+	width: 100px;
+	margin: 25px 10px 0px 0px;
+	float: left;
+	font-family: 'Audiowide', cursive;
+	padding: 10px 0px 0px 15px;
 }
 
 .green {
-	border-style: solid;
-	border-color: black;
 	height: 150px;
 	width: 150px;
-	margin: 10px;
+	margin: 30px 10px 10px 55px;
 	background: green;
 	border-radius: 150px 0px 0px 0px;
 }
 
 .red {
-	border-style: solid;
-	border-color: black;
 	height: 150px;
 	width: 150px;
-	margin: 10px;
+	margin: 30px 10px 10px 10px;
 	background: #9f5050;
 	border-radius: 0px 150px 0px 0px;
 }
 
 .blue {
-	border-style: solid;
-	border-color: black;
 	height: 150px;
 	width: 150px;
-	margin: 10px;
+	margin: 10px 10px 10px 10px;
 	background: #0c0c71;
 	border-radius: 0px 0px 150px 0px;
+	
 }
 
 .yellow {
-	border-style: solid;
-	border-color: black;
 	height: 150px;
 	width: 150px;
-	margin: 10px;
+	margin: 10px 10px 10px 55px;
 	background: #9b9b2b;
 	border-radius: 0px 0px 0px 150px;
 }
@@ -87,11 +94,4 @@
 .strict-highlight {
     background-color: green;
 }
-
-
-
-
-
-
-
 

@@ -149,7 +149,7 @@ $(document).ready(function(){
     
     // Tell computer to make a random move
     // This uses a setTimeout to run loop at intervals
-    // This function DOES fire sounds and colors
+`    // This function DOES fire sounds and colors
     function computerMoves() {
                 
         for (i = 0; i < computerList.length; i++) {
@@ -404,3 +404,4 @@ $(document).ready(function(){
     
 	
 });
+	
